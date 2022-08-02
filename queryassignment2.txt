@@ -1,0 +1,91 @@
+use bhavnacorp
+
+--PRODUCT TABLE--
+
+create table products(p_id int primary key identity(1,1), p_name nvarchar(20),Qty_Sold numeric(10,0), Qty_available numeric(10,0))
+
+insert into products values('iphone13', 50, 50)
+insert into products values('Televsion', 20, 80)
+insert into products values('Laptop', 30, 50)
+insert into products values('Mouse', 40, 50)
+insert into products values('Printer', 50, 50)
+insert into products values('Keyboard', 60, 50)
+insert into products values('Monitor', 70, 50)
+insert into products values('ipad', 80, 50)
+
+--ORDER TABLE--
+
+create table Orders(p_id int identity(1,1),Deliverydate nvarchar(20),Order_qty numeric(10,0), Pincode numeric(10,0))
+insert into Orders values('15/8/22', 2, 110020)
+insert into Orders values('16/8/22', 1, 110020)
+insert into Orders values('18/8/22', 3, 110020)
+insert into Orders values('21/8/22', 6, 110020)
+insert into Orders values('17/8/22',10, 110020)
+insert into Orders values('25/8/22', 8, 110020)
+insert into Orders values('29/8/22', 9, 110020)
+insert into Orders values('30/8/22', 7, 110020)
+
+--CUSTOMER TABLE--
+
+create table Customer(p_id int identity(1,1),Cust_name nvarchar(20),Address nvarchar(50), Payment_mode nvarchar(20))
+
+insert into Customer values('Rajesh', '86/4 Mehrauli', 'Online')
+insert into Customer values('Ram', 'p241,gurgaon', 'Online')
+insert into Customer values('Rohan', '86/7 noida', 'Online')
+insert into Customer values('Jai', '45/4 pansheel enclave', 'Online')
+insert into Customer values('Aman', '2110p dwarka', 'Online')
+insert into Customer values('Akshat', 'b1 vasant kunj', 'Online')
+insert into Customer values('Ajitesh', '231 c vasant vihar', 'Online')
+insert into Customer values('Sagar', '86/2, greater noida', 'Online')
+
+--ACCOUNT TABLE--
+
+create table Account(p_id int identity(1,1),Total_amount numeric(10), Cashback numeric(10))
+
+insert into Account values(150000, 2000)
+insert into Account values(20000, 600)
+insert into Account values(50000, 1000)
+insert into Account values(20000, 1500)
+insert into Account values(35000, 400)
+insert into Account values(60000, 800)
+insert into Account values(90000, 900)
+insert into Account values(70000, 500)
+
+select * from Products
+select * from Orders
+select * from Customer
+select * from Account
+
+-- 4 VIEWS ARE INCLUDED BELOW--
+
+create view admin_view
+as
+select p.p_id, p.p_name, o.Deliverydate, o.Order_Qty
+from products p
+inner join Orders o
+on p.p_id = o.p_id
+select * from admin_view
+
+create view admin1_view
+as
+select o.p_id, o.Deliverydate, o.Order_Qty, o.Pincode, c.Cust_name, c.Payment_mode
+from Orders o
+inner join Customer c
+on o.p_id = c.p_id
+select * from admin1_view
+
+create view admin2_view
+as
+select o.p_id, o.Deliverydate, o.Order_Qty, a.Total_amount, a.cashback
+from Orders o
+inner join Account a
+on o.p_id = a.p_id
+select * from admin2_view
+
+create view admin3_view
+as
+select c.p_id, c.Cust_name, c.Address, a.Total_amount, a.cashback
+from Customer c
+inner join Account a
+on c.p_id = a.p_id
+select * from admin2_view
