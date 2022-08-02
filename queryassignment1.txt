@@ -1,0 +1,31 @@
+create database bhavnacorp
+
+create table personal_detail(id int primary key identity(100,1), name nvarchar(30), address nvarchar(50))
+
+drop table personal_detail
+select * from salary_detail
+
+insert into personal_detail values('Ekjot', 'New Delhi')
+insert into personal_detail values('Daksh', 'Gurgaon')
+insert into personal_detail values('Dilshan', 'Greater Noida')
+
+create table official_detail(id int identity(100,1),Department nvarchar(30), Manager nvarchar(30))
+insert into official_detail values('Engineering', 'Akhilesh')
+insert into official_detail values('IT', 'Deepak')
+insert into official_detail values('HR', 'Ram')
+
+
+create table salary_detail(id int identity(100,1),Basic numeric(18,0), CTC numeric(18,0))
+insert into salary_detail values('20000', '600000')
+insert into salary_detail values('25000', '650000')
+insert into salary_detail values('30000', '700000')
+
+
+select sum(Basic) from salary_detail
+select avg(basic) from salary_detail where basic<30000
+select max(CTC) as 'Highest salary' from salary_detail
+delete from personal_detail where id = 102
+update personal_detail set name ='Dilshan' where id = 101
+
+select * from personal_detail
+
