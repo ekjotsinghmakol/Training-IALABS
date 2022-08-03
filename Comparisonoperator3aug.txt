@@ -1,0 +1,55 @@
+use bhavnacorp
+
+--PRODUCT TABLE--
+
+create table products(p_id int primary key identity(1,1), p_name nvarchar(20),Qty_ordered numeric(10,0), Qty_available numeric(10,0))
+
+insert into products values('iphone13', 50, 50)
+insert into products values('Televsion', 20, 80)
+insert into products values('Laptop', 30, 50)
+insert into products values('Mouse', 40, 50)
+insert into products values('Printer', 50, 50)
+insert into products values('Keyboard', 30, 50)
+insert into products values('Monitor', 45, 50)
+insert into products values('ipad', 80, 50)
+
+--ORDER TABLE--
+
+create table Orders(p_id int identity(1,1),p_name nvarchar(20),Qty_cancelled numeric(10,0), Qty_reqd numeric(10,0), Order_Total numeric(10,0))
+insert into Orders values('iphone',0,50,150000)
+insert into Orders values('Television', 1,5,100000)
+insert into Orders values('Laptop',3,37,80000)
+insert into Orders values('Mouse',6,20,60000)
+insert into Orders values('Printer',5,45,90000)
+insert into Orders values('Keyboard',8,30,40000)
+insert into Orders values('Monitor',9,49,75000)
+insert into Orders values('ipad',0,80,200000)
+
+
+select* from products
+select * from Orders
+drop table Orders
+
+--UNION--
+
+select Qty_ordered,p_name from products where Qty_ordered > 45
+union
+select Qty_reqd,p_name from Orders where Qty_reqd > 45
+
+--IN--
+select * from products where p_name in ('Pc','Mobile','iphone13')
+
+--INTERSECT--
+select Qty_ordered from products
+intersect
+select Qty_reqd from Orders
+
+--BETWEEN--
+select * from products where Qty_ordered
+between 40 and 80
+
+--WILDCARDS--
+select * from Orders where p_name like '[ip]%'
+
+--EXISTS--
+select * from products where exists(select * from Orders where products.Qty_ordered = Orders.Qty_reqd)
